@@ -1,0 +1,60 @@
+<h4>Signed counter: {{ amount }}</h4>
+
+<form (ngSubmit)="onSubmit()" #form="ngForm">
+
+  <div id="petitionData" ngModelGroup="petitionData" #petitionData="ngModelGroup">
+
+    <div class="mb-3">
+      <label for="firstName" class="form-label">
+        First Name
+      </label>
+      <input type="text" id="firstName" class="form-control" ngModel name="firstName" required>
+      <span class="help-block" *ngIf="!petitionData.valid && petitionData.touched">Please enter a valid value</span>
+    </div>
+
+  </div>
+
+  <div class="mb-3">
+    <label for="lastName" class="form-label">
+      Second Name
+    </label>
+    <input type="text" id="lastName" class="form-control" ngModel name="lastName" required #lastName="ngModel">
+    <span class="help-block" *ngIf="!lastName.valid && lastName.touched">Please enter a valid value</span>
+  </div>
+
+  <div class="mb-3">
+    <label for="email" class="form-label">
+      Mail
+    </label>
+    <input type="email" id="email" class="form-control" ngModel name="email" required email #email="ngModel">
+    <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email</span>
+  </div>
+
+  <div class="form-check">
+    <input type="checkbox" id="terms" class="form-check-input" ngModel name="terms" required>
+    <label class="form-check-label" for="flexCheckDefault">
+      Accept the terms
+    </label>
+  </div>
+
+  <button [disabled]="!form.valid" type="submit" class="btn btn-primary">Sign petition</button>
+  <button class="btn btn-danger" (click)="onCancel()">Cancel</button>
+
+</form>
+
+<div [hidden]="!showData">
+  <div class="modalAux">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Your data</h3>
+        <p>First Name: {{ petitionForm.firstName | uppercase }} </p>
+        <p>Second Name: {{ petitionForm.lastName | uppercase }}</p>
+        <p>Email: {{ petitionForm.email | uppercase }}</p>
+        <p>Terms: {{ petitionForm.terms | changeName }}</p>
+      </div>
+    </div>
+    <button class="btn btn-success" (click)="showData=false">close</button>
+  </div>
+  <div class="overlay">
+  </div>
+</div>
